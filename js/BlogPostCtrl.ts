@@ -1,4 +1,8 @@
-module blogPosts {
+/// <reference path='_all.ts' />
+/// <reference path='BlogPost.ts' />
+/// <reference path='libs/angular/angular.d.ts' />
+
+module blogposts {
   'use strict';
 
   export class BlogPostCtrl {
@@ -20,9 +24,6 @@ module blogPosts {
     ) {
       $scope.vm = this;
 
-
     }
-
   }
-
 }

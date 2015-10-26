@@ -1,4 +1,6 @@
-module blogPosts {
+/// <reference path='_all.ts' />
+
+module blogposts {
   'use strict';
 
   export class BlogPost {
