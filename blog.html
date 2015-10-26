@@ -8,47 +8,12 @@
   <body>
     <h1 class="blog-title">This is a blog</h1>
 
-<!-- <div ng-repeat="(key, value) in myObj"> ... </div> -->
-
     <div class="blog-posts" ng-controller="blogPostCtrl">
-      <!-- <div>{{ posts }}</div> -->
-      <div>{{ vm.posts }}</div>
-
-    <!-- <div class="blog-posts" ng-controller="blogPostCtrl" ng-repeat="post in posts"> -->
-    <!-- <div class="blog-posts" ng-controller="BlogPostCtrl" ng-repeat="post in posts"> -->
       <div class="blog-post" ng-repeat="post in vm.posts">
-        <!-- <div class="blog-post-title">{{ post }}</div> -->
         <div class="blog-post-title">{{ post.title }}</div>
         <div class="blog-post-body">{{ post.body }}</div>
       </div>
     </div>
-
-    <!--
-    <div class="blog-posts" ng-controller="postsCtrl">
-      <div class="blog-post">
-        <div class="blog-post-title">
-          Hi, I'm an entry!
-        </div>
-        <div class="blog-post-body">
-          <p>I am the entry's body.</p>
-        </div>
-      </div>
-
-      <div class="blog-post">
-        <div class="blog-post-title">
-          Second entry here
-        </div>
-        <div class="blog-post-body">
-            <p>Moar body. Blah Blah Blah.</p>
-            <p>Moar body. Blah Blah Blah.</p>
-            <p>Moar body. Blah Blah Blah.</p>
-            <p>Moar body. Blah Blah Blah.</p>
-            <p>Moar body. Blah Blah Blah.</p>
-        </div>
-      </div>
-
-    </div>
-    -->
 
     <script src="node_modules/angular/angular.js"></script>
     <script src="js/Application.js"></script>
