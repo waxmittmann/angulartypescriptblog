@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="blog.css"></link>
+  </head>
+
+  <body>
+    <h1 class="blog-title">This is a blog</h1>
+
+<!-- <div ng-repeat="(key, value) in myObj"> ... </div> -->
+
+    <div class="blog-posts" ng-controller="postsCtrl" ng-repeat="post in blogPosts">
+      <div>
+        <div class="blog-post-title">{{ title }}</div>
+        <div class="blog-post-body">{{ body }}</div>
+      </div>
+    </div>
+
+    <!--
+    <div class="blog-posts" ng-controller="postsCtrl">
+      <div class="blog-post">
+        <div class="blog-post-title">
+          Hi, I'm an entry!
+        </div>
+        <div class="blog-post-body">
+          <p>I am the entry's body.</p>
+        </div>
+      </div>
+
+      <div class="blog-post">
+        <div class="blog-post-title">
+          Second entry here
+        </div>
+        <div class="blog-post-body">
+            <p>Moar body. Blah Blah Blah.</p>
+            <p>Moar body. Blah Blah Blah.</p>
+            <p>Moar body. Blah Blah Blah.</p>
+            <p>Moar body. Blah Blah Blah.</p>
+            <p>Moar body. Blah Blah Blah.</p>
+        </div>
+      </div>
+
+    </div>
+    -->
+  </body>
+
+  <script src="node_modules/angular/angular.js"></script>
+  <script src="Application.js"></script>
+</html>
