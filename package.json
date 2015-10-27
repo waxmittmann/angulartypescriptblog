@@ -4,7 +4,8 @@
     "compile": "tsc --sourcemap --out js/Application.js js/_all.ts"
   },
   "dependencies": {
-    "angular": "^1.3.13"
+    "angular": "^1.3.13",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "typescript": "^1.5.0-alpha"

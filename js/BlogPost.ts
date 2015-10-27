@@ -5,6 +5,7 @@ module blogposts {
 
   export class BlogPost {
     constructor(
+      public postPosition: number,
       public title: string,
       public body: string
     ) { }
