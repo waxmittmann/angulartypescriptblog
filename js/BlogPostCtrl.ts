@@ -1,6 +1,7 @@
 /// <reference path='_all.ts' />
 /// <reference path='BlogPost.ts' />
 /// <reference path='libs/angular/angular.d.ts' />
+/// <reference path='libs/jquery/jquery.d.ts' />
 /// <reference path='libs/underscore/underscore.d.ts' />
 
 module blogposts {
@@ -34,7 +35,5 @@ module blogposts {
     getPosts(from: number, to: number) {
 
     }
-
-
   }
 }

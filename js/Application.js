@@ -15,10 +15,13 @@ var blogposts;
 /// <reference path='_all.ts' />
 /// <reference path='BlogPost.ts' />
 /// <reference path='libs/angular/angular.d.ts' />
+/// <reference path='libs/jquery/jquery.d.ts' />
 /// <reference path='libs/underscore/underscore.d.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
+    // import _ = require("underscore");
+    // import $ = require("jQuery");
     var BlogPostCtrl = (function () {
         function BlogPostCtrl($scope, $location) {
             this.$scope = $scope;
@@ -33,6 +36,7 @@ var blogposts;
         }
         BlogPostCtrl.prototype.addPost = function () {
             var sum = _.reduce([1, 2, 3], function (memo, num) { return memo + num; }, 0);
+            // var sum = _.reduce([1, 2, 3], function(memo: number, num: number){ return memo + num; }, 0);
             console.log(sum);
         };
         BlogPostCtrl.prototype.getPosts = function (from, to) {
