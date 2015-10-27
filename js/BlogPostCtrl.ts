@@ -28,12 +28,16 @@ module blogposts {
     }
 
     addPost() {
-      var sum = _.reduce([1, 2, 3], function(memo: number, num: number){ return memo + num; }, 0);
-      console.log(sum)
+
     }
 
     getPosts(from: number, to: number) {
 
+    }
+
+    test() {
+      var sum = _.reduce([1, 2, 3], function(memo: number, num: number){ return memo + num; }, 0);
+      console.log(sum)
     }
   }
 }

@@ -20,8 +20,6 @@ var blogposts;
 var blogposts;
 (function (blogposts) {
     'use strict';
-    // import _ = require("underscore");
-    // import $ = require("jQuery");
     var BlogPostCtrl = (function () {
         function BlogPostCtrl($scope, $location) {
             this.$scope = $scope;
@@ -35,11 +33,12 @@ var blogposts;
             $scope.vm = this;
         }
         BlogPostCtrl.prototype.addPost = function () {
-            var sum = _.reduce([1, 2, 3], function (memo, num) { return memo + num; }, 0);
-            // var sum = _.reduce([1, 2, 3], function(memo: number, num: number){ return memo + num; }, 0);
-            console.log(sum);
         };
         BlogPostCtrl.prototype.getPosts = function (from, to) {
+        };
+        BlogPostCtrl.prototype.test = function () {
+            var sum = _.reduce([1, 2, 3], function (memo, num) { return memo + num; }, 0);
+            console.log(sum);
         };
         BlogPostCtrl.$inject = [
             '$scope',
