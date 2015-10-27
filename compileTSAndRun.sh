@@ -1,1 +1,1 @@
-tsc --sourcemap --out js/Application.js js/Application.ts; http-server
+tsc --sourcemap --out js/Application.js ts/Application.ts; http-server

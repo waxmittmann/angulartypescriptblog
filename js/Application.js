@@ -1,4 +1,3 @@
-/// <reference path='_all.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
@@ -12,7 +11,6 @@ var blogposts;
     })();
     blogposts.BlogPost = BlogPost;
 })(blogposts || (blogposts = {}));
-/// <reference path='_all.ts' />
 /// <reference path='BlogPost.ts' />
 /// <reference path='libs/angular/angular.d.ts' />
 /// <reference path='libs/jquery/jquery.d.ts' />
@@ -48,7 +46,6 @@ var blogposts;
     })();
     blogposts.BlogPostCtrl = BlogPostCtrl;
 })(blogposts || (blogposts = {}));
-/// <reference path='_all.ts' />
 /// <reference path='libs/jquery/jquery.d.ts' />
 /// <reference path='libs/angular/angular.d.ts' />
 /// <reference path='BlogPostCtrl.ts' />

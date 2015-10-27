@@ -1,4 +1,3 @@
-/// <reference path='_all.ts' />
 /// <reference path='BlogPost.ts' />
 /// <reference path='libs/angular/angular.d.ts' />
 /// <reference path='libs/jquery/jquery.d.ts' />
