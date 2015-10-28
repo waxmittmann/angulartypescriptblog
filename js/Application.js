@@ -11,15 +11,15 @@ var blogposts;
     })();
     blogposts.BlogPost = BlogPost;
 })(blogposts || (blogposts = {}));
-/// <reference path='BlogPost.ts' />
-/// <reference path='libs/angular/angular.d.ts' />
-/// <reference path='libs/jquery/jquery.d.ts' />
-/// <reference path='libs/underscore/underscore.d.ts' />
+/// <reference path='../blogpost/BlogPost.ts' />
+/// <reference path='../../libs/angular/angular.d.ts' />
+/// <reference path='../../libs/jquery/jquery.d.ts' />
+/// <reference path='../../libs/underscore/underscore.d.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
-    var BlogPostCtrl = (function () {
-        function BlogPostCtrl($scope, $location) {
+    var ViewBlogPostCtrl = (function () {
+        function ViewBlogPostCtrl($scope, $location) {
             this.$scope = $scope;
             this.$location = $location;
             this.posts = [
@@ -30,75 +30,41 @@ var blogposts;
             ];
             $scope.vm = this;
         }
-        BlogPostCtrl.prototype.addPost = function () {
+        ViewBlogPostCtrl.prototype.addPost = function () {
         };
-        BlogPostCtrl.prototype.getPosts = function (from, to) {
+        ViewBlogPostCtrl.prototype.getPosts = function (from, to) {
         };
-        BlogPostCtrl.prototype.test = function () {
+        ViewBlogPostCtrl.prototype.test = function () {
             var sum = _.reduce([1, 2, 3], function (memo, num) { return memo + num; }, 0);
             console.log(sum);
         };
-        BlogPostCtrl.$inject = [
+        ViewBlogPostCtrl.$inject = [
             '$scope',
             '$location'
         ];
-        return BlogPostCtrl;
+        return ViewBlogPostCtrl;
     })();
-    blogposts.BlogPostCtrl = BlogPostCtrl;
+    blogposts.ViewBlogPostCtrl = ViewBlogPostCtrl;
 })(blogposts || (blogposts = {}));
-/// <reference path="libs/angular/angular.d.ts" />
-/// <reference path="libs/angular/angular-route.d.ts" />
-'use strict';
-// Create and register modules
-// var modules = ['app.controllers','app.directives', 'app.filters', 'app.services'];
-// modules.forEach((module) => angular.module(module, []));
-// *** Push ngRoute or $routeProvider won't work ***
-// modules.push("ngRoute");
-// angular.module('app', modules);
-// Url routing
-// angular.module('golby').config(['$routeProvider',
-//     function routes($routeProvider: ng.route.IRouteProvider) { // *** $routeProvider is typed with ng.route.IRouteProvider ***
-//         $routeProvider
-//             .when('/', {
-//                 templateUrl: 'views/MyView.html',
-//                 controller: 'golby.controllers.BlogPostCtrl'
-//             })
-//             .when('/cheese', {
-//                 templateUrl: 'views/Cheese.html',
-//                 controller: 'golby.controllers.BlogPostCtrl'
-//             })
-//             .otherwise({
-//                 redirectTo: '/'
-//             });
-//     }
-// ]);
-/// <reference path='libs/jquery/jquery.d.ts' />
-/// <reference path='libs/angular/angular.d.ts' />
-/// <reference path='BlogPostCtrl.ts' />
-/// <reference path='Router.ts' />
-/// <reference path="libs/angular/angular-route.d.ts" />
+/// <reference path='../libs/jquery/jquery.d.ts' />
+/// <reference path='../libs/angular/angular.d.ts' />
+/// <reference path='../libs/angular/angular-route.d.ts' />
+/// <reference path='viewblogposts/ViewBlogPostCtrl.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
-    // var modules = ['app.controllers','app.directives', 'app.filters', 'app.services'];
-    // modules.forEach((module) => angular.module(module, []));
-    // *** Push ngRoute or $routeProvider won't work ***
-    // modules.push("ngRoute");
-    // angular.module('app', modules);
     var golby = angular.module('golby', ['ngRoute'])
-        .controller('blogPostCtrl', blogposts.BlogPostCtrl)
+        .controller('viewBlogPostCtrl', blogposts.ViewBlogPostCtrl)
         .config(['$routeProvider',
-        // *** $routeProvider is typed with ng.route.IRouteProvider ***
-        // *** $routeProvider is typed with ng.route.IRouteProvider ***
         function routes($routeProvider) {
             $routeProvider
                 .when('/', {
                 templateUrl: 'views/view1.html',
-                controller: 'blogPostCtrl'
+                controller: 'viewBlogPostCtrl'
             })
                 .when('/cheese', {
                 templateUrl: 'views/view2.html',
-                controller: 'blogPostCtrl'
+                controller: 'viewBlogPostCtrl'
             })
                 .otherwise({
                 redirectTo: '/'

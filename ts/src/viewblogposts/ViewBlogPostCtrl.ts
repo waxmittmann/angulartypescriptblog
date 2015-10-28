@@ -1,12 +1,12 @@
-/// <reference path='BlogPost.ts' />
-/// <reference path='libs/angular/angular.d.ts' />
-/// <reference path='libs/jquery/jquery.d.ts' />
-/// <reference path='libs/underscore/underscore.d.ts' />
+/// <reference path='../blogpost/BlogPost.ts' />
+/// <reference path='../../libs/angular/angular.d.ts' />
+/// <reference path='../../libs/jquery/jquery.d.ts' />
+/// <reference path='../../libs/underscore/underscore.d.ts' />
 
 module blogposts {
   'use strict';
 
-  export class BlogPostCtrl {
+  export class ViewBlogPostCtrl {
     private posts = [
         new BlogPost(1, "First Post", "This is the body"),
         new BlogPost(2, "Second Post", "This is the body"),
