@@ -1,7 +1,9 @@
-/// <reference path='../blogpost/BlogPost.ts' />
 /// <reference path='../../libs/angular/angular.d.ts' />
 /// <reference path='../../libs/jquery/jquery.d.ts' />
 /// <reference path='../../libs/underscore/underscore.d.ts' />
+
+/// <reference path='../blogpost/BlogPost.ts' />
+/// <reference path='../blogpost/BlogPostStore.ts' />
 
 module blogposts {
   'use strict';
@@ -15,11 +17,13 @@ module blogposts {
     ];
 
     public static $inject = [
+      'blogPostStore',
 			'$scope',
 			'$location'
 		];
 
     constructor(
+      private blogPostStore: IBlogPostStore,
       private $scope,
       private $location: ng.ILocationService
     ) {
@@ -28,6 +32,10 @@ module blogposts {
 
     addPost() {
 
+    }
+
+    list() {
+      return this.blogPostStore.list();
     }
 
     getPosts(from: number, to: number) {

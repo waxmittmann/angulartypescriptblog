@@ -1,11 +1,12 @@
 <div class="blog-posts" ng-cloak>
 <!-- <div class="blog-posts" ng-controller="viewBlogPostCtrl" ng-cloak> -->
-  <div class="blog-post" ng-repeat="post in vm.posts">
+  <!-- <div class="blog-post" ng-repeat="post in vm.posts"> -->
+  <div class="blog-post" ng-repeat="post in vm.list()">
     <div class="blog-post-title" ng-cloak>{{ post.title }}</div>
     <div class="blog-post-body" ng-cloak>{{ post.body }}</div>
   </div>
 
   <button ng-click="vm.addPost()">Power</button>
 
-  <a href="/#/cheese">Edit</a>
+  <a href="/#/newPost">New</a>
 </div>
