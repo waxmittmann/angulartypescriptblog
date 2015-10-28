@@ -30,21 +30,16 @@ module blogposts {
       $scope.vm = this;
     }
 
-    addPost() {
-
-    }
-
     list() {
       return this.blogPostStore.list();
     }
 
     getPosts(from: number, to: number) {
-
+      throw "Not implemented yet";
     }
 
-    test() {
-      var sum = _.reduce([1, 2, 3], function(memo: number, num: number){ return memo + num; }, 0);
-      console.log(sum)
+    deletePost(at: number) {
+
     }
   }
 }

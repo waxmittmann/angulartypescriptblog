@@ -26,7 +26,7 @@ var blogposts;
             ];
         }
         BlogPostStore.prototype.add = function (newPost) {
-            // posts.push(newPost);
+            this.posts.push(newPost);
         };
         BlogPostStore.prototype.remove = function (at) {
             //Todo
@@ -34,6 +34,9 @@ var blogposts;
         };
         BlogPostStore.prototype.list = function () {
             return this.posts;
+        };
+        BlogPostStore.prototype.nextId = function () {
+            return this.posts.length;
         };
         return BlogPostStore;
     })();
@@ -60,16 +63,13 @@ var blogposts;
             ];
             $scope.vm = this;
         }
-        ViewBlogPostCtrl.prototype.addPost = function () {
-        };
         ViewBlogPostCtrl.prototype.list = function () {
             return this.blogPostStore.list();
         };
         ViewBlogPostCtrl.prototype.getPosts = function (from, to) {
+            throw "Not implemented yet";
         };
-        ViewBlogPostCtrl.prototype.test = function () {
-            var sum = _.reduce([1, 2, 3], function (memo, num) { return memo + num; }, 0);
-            console.log(sum);
+        ViewBlogPostCtrl.prototype.deletePost = function (at) {
         };
         ViewBlogPostCtrl.$inject = [
             'blogPostStore',
@@ -80,16 +80,54 @@ var blogposts;
     })();
     blogposts.ViewBlogPostCtrl = ViewBlogPostCtrl;
 })(blogposts || (blogposts = {}));
+/// <reference path='../../libs/angular/angular.d.ts' />
+/// <reference path='../../libs/jquery/jquery.d.ts' />
+/// <reference path='../../libs/underscore/underscore.d.ts' />
+/// <reference path='../blogpost/BlogPost.ts' />
+/// <reference path='../blogpost/BlogPostStore.ts' />
+var blogposts;
+(function (blogposts) {
+    'use strict';
+    var CreateBlogPostCtrl = (function () {
+        function CreateBlogPostCtrl(blogPostStore, $scope, $location) {
+            this.blogPostStore = blogPostStore;
+            this.$scope = $scope;
+            this.$location = $location;
+            $scope.vm = this;
+            $scope.newPostTitle = "";
+            $scope.newPostBody = "";
+        }
+        CreateBlogPostCtrl.prototype.addPost = function () {
+            console.log("Trying to add");
+            var newPost = new blogposts.BlogPost(this.blogPostStore.nextId(), this.$scope.newPostTitle, this.$scope.newPostBody);
+            this.blogPostStore.add(newPost);
+            this.$scope.newPostTitle = "";
+            this.$scope.newPostBody = "";
+        };
+        CreateBlogPostCtrl.prototype.editPost = function (post) {
+            throw "Not implemented yet";
+        };
+        CreateBlogPostCtrl.$inject = [
+            'blogPostStore',
+            '$scope',
+            '$location'
+        ];
+        return CreateBlogPostCtrl;
+    })();
+    blogposts.CreateBlogPostCtrl = CreateBlogPostCtrl;
+})(blogposts || (blogposts = {}));
 /// <reference path='../libs/jquery/jquery.d.ts' />
 /// <reference path='../libs/angular/angular.d.ts' />
 /// <reference path='../libs/angular/angular-route.d.ts' />
 /// <reference path='viewblogposts/ViewBlogPostCtrl.ts' />
+/// <reference path='createblogpost/CreateBlogPostCtrl.ts' />
 /// <reference path='blogpost/BlogPostStore.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
     var golby = angular.module('golby', ['ngRoute'])
         .controller('viewBlogPostCtrl', blogposts.ViewBlogPostCtrl)
+        .controller('createBlogPostCtrl', blogposts.CreateBlogPostCtrl)
         .service('blogPostStore', blogposts.BlogPostStore)
         .config(['$routeProvider',
         function routes($routeProvider) {
@@ -100,7 +138,7 @@ var blogposts;
             })
                 .when('/newPost', {
                 templateUrl: 'views/newPost.html',
-                controller: 'viewBlogPostCtrl'
+                controller: 'createBlogPostCtrl'
             })
                 .otherwise({
                 redirectTo: '/'

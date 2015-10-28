@@ -1,10 +1,10 @@
 <div>
   <h1>Enter blogpost here:</h1>
   <div>
-    <form>
-      <div><input  style='margin: 5px; border: 1px solid black; width: 95%; height: 20px' type="text"/></div>
-      <div><textarea style='margin: 5px; border: 1px solid black; width: 95%; height: 80%'></textarea></div>
-      <div><button type="submit">Create</button></div>
+    <form onSubmit="">
+      <div><input ng-model="newPostTitle" id="new-post-title" style='margin: 5px; border: 1px solid black; width: 95%; height: 20px' type="text"/></div>
+      <div><textarea ng-model="newPostBody" id="new-post-body" style='margin: 5px; border: 1px solid black; width: 95%; height: 80%'></textarea></div>
+      <div><button ng-click="vm.addPost()" type="submit">Create</button></div>
     </form>
   </div>
   <a href="/#/">View</a>

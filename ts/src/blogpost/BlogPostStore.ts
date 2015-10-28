@@ -14,7 +14,7 @@ module blogposts {
     ];
 
     add(newPost: BlogPost) {
-      // posts.push(newPost);
+      this.posts.push(newPost);
     }
 
     remove(at: number) {
@@ -24,6 +24,10 @@ module blogposts {
 
     list() {
       return this.posts;
+    }
+
+    nextId() {
+      return this.posts.length;
     }
   }
 }

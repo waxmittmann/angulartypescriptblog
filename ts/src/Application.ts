@@ -3,6 +3,7 @@
 /// <reference path='../libs/angular/angular-route.d.ts' />
 
 /// <reference path='viewblogposts/ViewBlogPostCtrl.ts' />
+/// <reference path='createblogpost/CreateBlogPostCtrl.ts' />
 /// <reference path='blogpost/BlogPostStore.ts' />
 
 module blogposts {
@@ -10,6 +11,7 @@ module blogposts {
 
     var golby = angular.module('golby', ['ngRoute'])
             .controller('viewBlogPostCtrl', ViewBlogPostCtrl)
+            .controller('createBlogPostCtrl', CreateBlogPostCtrl)
             .service('blogPostStore', BlogPostStore)
             .config(['$routeProvider',
                 function routes($routeProvider: ng.route.IRouteProvider) {
@@ -20,7 +22,7 @@ module blogposts {
                         })
                         .when('/newPost', {
                             templateUrl: 'views/newPost.html',
-                            controller: 'viewBlogPostCtrl'
+                            controller: 'createBlogPostCtrl'
                         })
                         .otherwise({
                             redirectTo: '/'

@@ -17,15 +17,29 @@ module blogposts {
 		];
 
     constructor(
-      private blogPostStore,
+      private blogPostStore: BlogPostStore,
       private $scope,
       private $location: ng.ILocationService
     ) {
       $scope.vm = this;
+      $scope.newPostTitle = "";
+      $scope.newPostBody = "";
     }
 
     addPost() {
+      console.log("Trying to add");
+      var newPost = new BlogPost(
+          this.blogPostStore.nextId(),
+          this.$scope.newPostTitle,
+          this.$scope.newPostBody
+      );
+      this.blogPostStore.add(newPost);
+      this.$scope.newPostTitle = "";
+      this.$scope.newPostBody = "";
+    }
 
+    editPost(post: BlogPost) {
+      throw "Not implemented yet";
     }
   }
 }
