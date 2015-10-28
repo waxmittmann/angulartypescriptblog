@@ -1,9 +1,10 @@
 /// <reference path='../../libs/angular/angular.d.ts' />
+/// <reference path='../../libs/angular/angular-route.d.ts' />
 /// <reference path='../../libs/jquery/jquery.d.ts' />
 /// <reference path='../../libs/underscore/underscore.d.ts' />
 
 /// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/BlogPostStore.ts' />
+/// <reference path='../blogpost/LocalStorageBlogPostStore.ts' />
 
 module blogposts {
   'use strict';
@@ -23,23 +24,24 @@ module blogposts {
 		];
 
     constructor(
-      private blogPostStore: BlogPostStore,
+      private blogPostStore: LocalStorageBlogPostStore,
       private $scope,
       private $location: ng.ILocationService
     ) {
       $scope.vm = this;
+      this.blogPosts = this.blogPostStore.list();
     }
 
     list() {
-      return this.blogPostStore.list();
+      return this.blogPosts;
     }
 
     getPosts(from: number, to: number) {
       throw "Not implemented yet";
     }
 
-    deletePost(at: number) {
-
+    deletePost(id: number) {
+      this.blogPostStore.remove(id);
     }
   }
 }

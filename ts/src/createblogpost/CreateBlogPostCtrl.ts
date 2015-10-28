@@ -1,9 +1,10 @@
 /// <reference path='../../libs/angular/angular.d.ts' />
+/// <reference path='../../libs/angular/angular-route.d.ts' />
 /// <reference path='../../libs/jquery/jquery.d.ts' />
 /// <reference path='../../libs/underscore/underscore.d.ts' />
 
 /// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/BlogPostStore.ts' />
+/// <reference path='../blogpost/LocalStorageBlogPostStore.ts' />
 
 module blogposts {
   'use strict';
@@ -13,33 +14,53 @@ module blogposts {
     public static $inject = [
       'blogPostStore',
 			'$scope',
-			'$location'
+			'$location',
+      '$routeParams'
 		];
 
     constructor(
-      private blogPostStore: BlogPostStore,
+      private blogPostStore: LocalStorageBlogPostStore,
       private $scope,
-      private $location: ng.ILocationService
+      private $location: ng.ILocationService,
+      private $routeParams
     ) {
       $scope.vm = this;
-      $scope.newPostTitle = "";
-      $scope.newPostBody = "";
+
+      if ($routeParams.postId) {
+        $scope.newPostId = $routeParams.postId;
+        var postToEdit = blogPostStore.get($scope.newPostId);
+        if (!postToEdit) {
+            throw "Post with id " + $scope.newPostId + " not found";
+        }
+        $scope.newPostTitle = postToEdit.title;
+        $scope.newPostBody = postToEdit.body;
+      } else {
+        $scope.newPostTitle = "";
+        $scope.newPostBody = "";
+      }
     }
 
-    addPost() {
-      console.log("Trying to add");
-      var newPost = new BlogPost(
-          this.blogPostStore.nextId(),
-          this.$scope.newPostTitle,
-          this.$scope.newPostBody
-      );
-      this.blogPostStore.add(newPost);
-      this.$scope.newPostTitle = "";
-      this.$scope.newPostBody = "";
+    addOrEditPost() {
+      if (this.$scope.newPostId) {
+          var newPost = new BlogPost(
+              this.$scope.newPostId,
+              this.$scope.newPostTitle,
+              this.$scope.newPostBody
+          );
+          this.blogPostStore.edit(newPost);
+      } else {
+          var newPost = new BlogPost(
+              this.blogPostStore.nextId(),
+              this.$scope.newPostTitle,
+              this.$scope.newPostBody
+          );
+          this.blogPostStore.add(newPost);
+          this.$scope.newPostId = newPost.id;
+      }
     }
 
-    editPost(post: BlogPost) {
-      throw "Not implemented yet";
-    }
+    // editPost(post: BlogPost) {
+    //   throw "Not implemented yet";
+    // }
   }
 }

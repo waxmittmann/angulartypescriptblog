@@ -4,7 +4,7 @@
 
 /// <reference path='viewblogposts/ViewBlogPostCtrl.ts' />
 /// <reference path='createblogpost/CreateBlogPostCtrl.ts' />
-/// <reference path='blogpost/BlogPostStore.ts' />
+/// <reference path='blogpost/LocalStorageBlogPostStore.ts' />
 
 module blogposts {
     'use strict';
@@ -12,7 +12,7 @@ module blogposts {
     var golby = angular.module('golby', ['ngRoute'])
             .controller('viewBlogPostCtrl', ViewBlogPostCtrl)
             .controller('createBlogPostCtrl', CreateBlogPostCtrl)
-            .service('blogPostStore', BlogPostStore)
+            .service('blogPostStore', LocalStorageBlogPostStore)
             .config(['$routeProvider',
                 function routes($routeProvider: ng.route.IRouteProvider) {
                     $routeProvider
@@ -20,12 +20,19 @@ module blogposts {
                             templateUrl: 'views/viewPosts.html',
                             controller: 'viewBlogPostCtrl'
                         })
-                        .when('/newPost', {
+                        .when('/admin/posts/:postId', {
                             templateUrl: 'views/newPost.html',
                             controller: 'createBlogPostCtrl'
                         })
+                        .when('/admin/posts/', {
+                            templateUrl: 'views/newPost.html',
+                            controller: 'createBlogPostCtrl'
+                        })
+                        .when('/404', {
+                            templateUrl: 'views/404.html'
+                        })
                         .otherwise({
-                            redirectTo: '/'
+                            redirectTo: '/404'
                         });
                 }
             ]);

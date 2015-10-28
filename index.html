@@ -8,11 +8,12 @@
   <body>
     <h1 class="blog-title">This is a blog</h1>
 
-    <div ng-view>
-    <!-- <div ng-controller="blogPostCtrl" ng-view> -->
-      ... todo, views go here ...
+    <div class="blog-menu">
+      <a href="/#/">View</a>
+      <a href="/#/admin/posts">New</a>
     </div>
 
+    <div ng-view></div>
   </body>
 
   <script src="node_modules/angular/angular.js"></script>
