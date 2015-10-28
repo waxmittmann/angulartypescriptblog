@@ -39,10 +39,10 @@ module blogposts {
     }
 
     remove(id: number) {
-      var difference = this.doWithPosts(function(posts: BlogPost[]) {
-          var newPosts = _.filter(posts, function(post) { return post.id != id});
-          var difference = posts.length - newPosts.length;
-      });
+      var posts: BlogPost[] = this.list();
+      var newPosts = _.filter(posts, function(post) { return post.id != id});
+      var difference = posts.length - newPosts.length;
+      localStorage.setItem(LocalStorageBlogPostStore.STORAGE_ID, JSON.stringify(newPosts));
       return difference;
     }
 

@@ -23,6 +23,8 @@ module blogposts {
 			'$location'
 		];
 
+    private blogPosts: BlogPost[];
+
     constructor(
       private blogPostStore: LocalStorageBlogPostStore,
       private $scope,
@@ -42,6 +44,8 @@ module blogposts {
 
     deletePost(id: number) {
       this.blogPostStore.remove(id);
+      this.blogPosts = this.blogPostStore.list();
+      // this.$scope.$digest();
     }
   }
 }

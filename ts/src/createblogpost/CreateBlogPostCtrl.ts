@@ -59,6 +59,19 @@ module blogposts {
       }
     }
 
+    save() {
+      this.addOrEditPost();
+    }
+
+    cancel() {
+      this.$location.path("/");
+    }
+
+    done() {
+      this.addOrEditPost();
+      this.$location.path("/");
+    }
+
     // editPost(post: BlogPost) {
     //   throw "Not implemented yet";
     // }

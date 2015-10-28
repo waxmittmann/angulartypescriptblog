@@ -46,10 +46,10 @@ var blogposts;
             return post;
         };
         LocalStorageBlogPostStore.prototype.remove = function (id) {
-            var difference = this.doWithPosts(function (posts) {
-                var newPosts = _.filter(posts, function (post) { return post.id != id; });
-                var difference = posts.length - newPosts.length;
-            });
+            var posts = this.list();
+            var newPosts = _.filter(posts, function (post) { return post.id != id; });
+            var difference = posts.length - newPosts.length;
+            localStorage.setItem(LocalStorageBlogPostStore.STORAGE_ID, JSON.stringify(newPosts));
             return difference;
         };
         LocalStorageBlogPostStore.prototype.list = function () {
@@ -107,6 +107,8 @@ var blogposts;
         };
         ViewBlogPostCtrl.prototype.deletePost = function (id) {
             this.blogPostStore.remove(id);
+            this.blogPosts = this.blogPostStore.list();
+            // this.$scope.$digest();
         };
         ViewBlogPostCtrl.$inject = [
             'blogPostStore',
@@ -157,6 +159,16 @@ var blogposts;
                 this.blogPostStore.add(newPost);
                 this.$scope.newPostId = newPost.id;
             }
+        };
+        CreateBlogPostCtrl.prototype.save = function () {
+            this.addOrEditPost();
+        };
+        CreateBlogPostCtrl.prototype.cancel = function () {
+            this.$location.path("/");
+        };
+        CreateBlogPostCtrl.prototype.done = function () {
+            this.addOrEditPost();
+            this.$location.path("/");
         };
         CreateBlogPostCtrl.$inject = [
             'blogPostStore',
