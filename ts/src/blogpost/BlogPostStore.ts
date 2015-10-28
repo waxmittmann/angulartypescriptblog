@@ -1,12 +1,11 @@
 /// <reference path='../../libs/underscore/underscore.d.ts' />
 
 /// <reference path='BlogPost.ts' />
-/// <reference path='IBlogPostStore.ts' />
 
 module blogposts {
   'use strict';
 
-  export class BlogPostStore implements IBlogPostStore {
+  export class BlogPostStore {
     private posts = [
         new BlogPost(1, "First Post", "This is the body"),
         new BlogPost(2, "Second Post", "This is the body"),

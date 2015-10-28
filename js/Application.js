@@ -11,10 +11,8 @@ var blogposts;
     })();
     blogposts.BlogPost = BlogPost;
 })(blogposts || (blogposts = {}));
-/// <reference path='BlogPost.ts' />
 /// <reference path='../../libs/underscore/underscore.d.ts' />
 /// <reference path='BlogPost.ts' />
-/// <reference path='IBlogPostStore.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';

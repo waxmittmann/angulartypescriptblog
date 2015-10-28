@@ -23,7 +23,7 @@ module blogposts {
 		];
 
     constructor(
-      private blogPostStore: IBlogPostStore,
+      private blogPostStore: BlogPostStore,
       private $scope,
       private $location: ng.ILocationService
     ) {
