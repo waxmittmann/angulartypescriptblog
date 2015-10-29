@@ -1,15 +1,14 @@
 <div class="blog-posts" ng-cloak>
-  <!-- <div class="blog-post" ng-repeat="post in vm.list()"> -->
-  <div style='margin-bottom: 20px;'>Posts are: {{ vm.list() }}</div>
+  <div ng-show="loggedIn" style='margin-bottom: 20px;'>Posts are: {{ vm.list() }}</div>
 
   <div class="blog-post" ng-repeat="post in vm.list()">
     <div class="blog-post-title" ng-cloak>{{ post.title }}</div>
     <div class="blog-post-body" ng-cloak>{{ post.body }}</div>
     <div>
-      <a href="/#/admin/posts/{{ post.id }}">Edit</a>
-      <a href="javascript:;" ng-click="vm.deletePost( post.id )">Delete</a>
+      <a ng-show="loggedIn" href="/#/admin/posts/{{ post.id }}">Edit</a>
+      <a ng-show="loggedIn" href="javascript:;" ng-click="vm.deletePost( post.id )">Delete</a>
     </div>
   </div>
 
-  <button ng-click="vm.addPost()">Power</button>
+  <button ng-show="loggedIn" ng-click="vm.addPost()">New Post</button>
 </div>

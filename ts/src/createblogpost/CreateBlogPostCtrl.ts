@@ -1,10 +1,5 @@
-/// <reference path='../../libs/angular/angular.d.ts' />
-/// <reference path='../../libs/angular/angular-route.d.ts' />
-/// <reference path='../../libs/jquery/jquery.d.ts' />
-/// <reference path='../../libs/underscore/underscore.d.ts' />
+/// <reference path='../_all.ts' />
 
-/// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/BlogPostStore.ts' />
 
 module blogposts {
   'use strict';
@@ -13,6 +8,7 @@ module blogposts {
 
     public static $inject = [
       'blogPostStore',
+      'authenticationService',
 			'$scope',
 			'$location',
       '$routeParams'
@@ -20,11 +16,16 @@ module blogposts {
 
     constructor(
       private blogPostStore: BlogPostStore,
+      private authenticationService,
       private $scope,
       private $location: ng.ILocationService,
       private $routeParams
     ) {
       $scope.vm = this;
+
+      if (!authenticationService.isLoggedIn()) {
+        this.$location.path("/login");
+      }
 
       if ($routeParams.postId) {
         $scope.newPostId = $routeParams.postId;

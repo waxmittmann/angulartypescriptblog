@@ -1,10 +1,4 @@
-/// <reference path='../../libs/angular/angular.d.ts' />
-/// <reference path='../../libs/angular/angular-route.d.ts' />
-/// <reference path='../../libs/jquery/jquery.d.ts' />
-/// <reference path='../../libs/underscore/underscore.d.ts' />
-
-/// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/BlogPostStore.ts' />
+/// <reference path='../_all.ts' />
 
 module blogposts {
   'use strict';
@@ -12,6 +6,7 @@ module blogposts {
   export class ViewBlogPostCtrl {
     public static $inject = [
       'blogPostStore',
+      'authenticationService',
 			'$scope',
 			'$location'
 		];
@@ -24,14 +19,17 @@ module blogposts {
 
     constructor(
       private blogPostStore: BlogPostStore,
+      private authenticationService: AuthenticationService,
       private $scope,
       private $location: ng.ILocationService
     ) {
       $scope.vm = this;
       this.blogPosts = this.blogPostStore.list();
+
+      console.log("Called constructor!");
     }
 
-    list() {
+    list(): BlogPost[] {
       return this.blogPosts;
     }
 
@@ -43,5 +41,10 @@ module blogposts {
       this.blogPostStore.remove(id);
       this.blogPosts = this.blogPostStore.list();
     }
+
+    // showAdminControls(): boolean {
+    //   console.log("is logged in? = " + this.authenticationService.isLoggedIn());
+    //   return this.authenticationService.isLoggedIn();
+    // }
   }
 }

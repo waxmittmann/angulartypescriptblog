@@ -1,37 +1,16 @@
-var blogposts;
-(function (blogposts) {
-    'use strict';
-    var BlogPost = (function () {
-        function BlogPost(id, title, body) {
-            this.id = id;
-            this.title = title;
-            this.body = body;
-        }
-        return BlogPost;
-    })();
-    blogposts.BlogPost = BlogPost;
-})(blogposts || (blogposts = {}));
-/// <reference path='BlogPost.ts' />
-var blogposts;
-(function (blogposts) {
-    'use strict';
-})(blogposts || (blogposts = {}));
-/// <reference path='../../libs/angular/angular.d.ts' />
-/// <reference path='../../libs/angular/angular-route.d.ts' />
-/// <reference path='../../libs/jquery/jquery.d.ts' />
-/// <reference path='../../libs/underscore/underscore.d.ts' />
-/// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/BlogPostStore.ts' />
+/// <reference path='../_all.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
     var ViewBlogPostCtrl = (function () {
-        function ViewBlogPostCtrl(blogPostStore, $scope, $location) {
+        function ViewBlogPostCtrl(blogPostStore, authenticationService, $scope, $location) {
             this.blogPostStore = blogPostStore;
+            this.authenticationService = authenticationService;
             this.$scope = $scope;
             this.$location = $location;
             $scope.vm = this;
             this.blogPosts = this.blogPostStore.list();
+            console.log("Called constructor!");
         }
         ViewBlogPostCtrl.prototype.list = function () {
             return this.blogPosts;
@@ -45,6 +24,7 @@ var blogposts;
         };
         ViewBlogPostCtrl.$inject = [
             'blogPostStore',
+            'authenticationService',
             '$scope',
             '$location'
         ];
@@ -52,22 +32,21 @@ var blogposts;
     })();
     blogposts.ViewBlogPostCtrl = ViewBlogPostCtrl;
 })(blogposts || (blogposts = {}));
-/// <reference path='../../libs/angular/angular.d.ts' />
-/// <reference path='../../libs/angular/angular-route.d.ts' />
-/// <reference path='../../libs/jquery/jquery.d.ts' />
-/// <reference path='../../libs/underscore/underscore.d.ts' />
-/// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/BlogPostStore.ts' />
+/// <reference path='../_all.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
     var CreateBlogPostCtrl = (function () {
-        function CreateBlogPostCtrl(blogPostStore, $scope, $location, $routeParams) {
+        function CreateBlogPostCtrl(blogPostStore, authenticationService, $scope, $location, $routeParams) {
             this.blogPostStore = blogPostStore;
+            this.authenticationService = authenticationService;
             this.$scope = $scope;
             this.$location = $location;
             this.$routeParams = $routeParams;
             $scope.vm = this;
+            if (!authenticationService.isLoggedIn()) {
+                this.$location.path("/login");
+            }
             if ($routeParams.postId) {
                 $scope.newPostId = $routeParams.postId;
                 var postToEdit = blogPostStore.get($scope.newPostId);
@@ -105,6 +84,7 @@ var blogposts;
         };
         CreateBlogPostCtrl.$inject = [
             'blogPostStore',
+            'authenticationService',
             '$scope',
             '$location',
             '$routeParams'
@@ -113,9 +93,26 @@ var blogposts;
     })();
     blogposts.CreateBlogPostCtrl = CreateBlogPostCtrl;
 })(blogposts || (blogposts = {}));
-/// <reference path='../../../libs/underscore/underscore.d.ts' />
-/// <reference path='../BlogPostStore.ts' />
-/// <reference path='../BlogPost.ts' />
+/// <reference path='../_all.ts' />
+var blogposts;
+(function (blogposts) {
+    'use strict';
+    var BlogPost = (function () {
+        function BlogPost(id, title, body) {
+            this.id = id;
+            this.title = title;
+            this.body = body;
+        }
+        return BlogPost;
+    })();
+    blogposts.BlogPost = BlogPost;
+})(blogposts || (blogposts = {}));
+/// <reference path='../_all.ts' />
+var blogposts;
+(function (blogposts) {
+    'use strict';
+})(blogposts || (blogposts = {}));
+/// <reference path='../../_all.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
@@ -190,12 +187,74 @@ var blogposts;
     })();
     blogposts.LocalStorageBlogPostStore = LocalStorageBlogPostStore;
 })(blogposts || (blogposts = {}));
+/// <reference path='../_all.ts' />
+var blogposts;
+(function (blogposts) {
+    'use strict';
+    var AuthenticationService = (function () {
+        function AuthenticationService() {
+            this.loggedIn = false;
+        }
+        AuthenticationService.prototype.login = function (password) {
+            this.loggedIn = true;
+        };
+        AuthenticationService.prototype.logout = function () {
+            this.loggedIn = false;
+        };
+        AuthenticationService.prototype.isLoggedIn = function () {
+            return this.loggedIn;
+        };
+        return AuthenticationService;
+    })();
+    blogposts.AuthenticationService = AuthenticationService;
+})(blogposts || (blogposts = {}));
+/// <reference path='../_all.ts' />
+var blogposts;
+(function (blogposts) {
+    'use strict';
+    var AuthenticationCtrl = (function () {
+        function AuthenticationCtrl(authenticationService, $scope) {
+            this.authenticationService = authenticationService;
+            this.$scope = $scope;
+            $scope.vm = this;
+            $scope.loggedIn = this.authenticationService.isLoggedIn();
+            // console.log("Constructed auth ctrl");
+        }
+        AuthenticationCtrl.prototype.logIn = function () {
+            this.authenticationService.login();
+            this.$scope.loggedIn = this.authenticationService.isLoggedIn();
+        };
+        AuthenticationCtrl.prototype.logOut = function () {
+            this.authenticationService.logout();
+            this.$scope.loggedIn = this.authenticationService.isLoggedIn();
+        };
+        AuthenticationCtrl.prototype.showAdminControls = function () {
+            console.log("is logged in? = " + this.authenticationService.isLoggedIn());
+            return this.authenticationService.isLoggedIn();
+        };
+        AuthenticationCtrl.prototype.ping = function () {
+            return true;
+        };
+        AuthenticationCtrl.$inject = [
+            'authenticationService',
+            '$scope'
+        ];
+        return AuthenticationCtrl;
+    })();
+    blogposts.AuthenticationCtrl = AuthenticationCtrl;
+})(blogposts || (blogposts = {}));
 /// <reference path='../libs/jquery/jquery.d.ts' />
 /// <reference path='../libs/angular/angular.d.ts' />
 /// <reference path='../libs/angular/angular-route.d.ts' />
-/// <reference path='viewblogposts/ViewBlogPostCtrl.ts' />
-/// <reference path='createblogpost/CreateBlogPostCtrl.ts' />
-/// <reference path='blogpost/implementations/LocalStorageBlogPostStore.ts' />
+/// <reference path='../libs/underscore/underscore.d.ts' />
+/// <reference path='./viewblogposts/ViewBlogPostCtrl.ts' />
+/// <reference path='./createblogpost/CreateBlogPostCtrl.ts' />
+/// <reference path='./blogpost/BlogPost.ts' />
+/// <reference path='./blogpost/BlogPostStore.ts' />
+/// <reference path='./blogpost/implementations/LocalStorageBlogPostStore.ts' />
+/// <reference path='./authentication/AuthenticationService.ts' />
+/// <reference path='./authentication/AuthenticationCtrl.ts' />
+/// <reference path='_all.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
@@ -203,12 +262,21 @@ var blogposts;
     var golby = angular.module('golby', ['ngRoute'])
         .controller('viewBlogPostCtrl', blogposts.ViewBlogPostCtrl)
         .controller('createBlogPostCtrl', blogposts.CreateBlogPostCtrl)
+        .controller('authenticationCtrl', blogposts.AuthenticationCtrl)
         .service('blogPostStore', blogposts.LocalStorageBlogPostStore)
+        .service('authenticationService', blogposts.AuthenticationService)
         .config(['$routeProvider',
         function routes($routeProvider) {
             $routeProvider
                 .when('/', {
                 templateUrl: 'views/viewPosts.html',
+                controller: 'viewBlogPostCtrl'
+            })
+                .when('/posts/', {
+                redirectTo: '/'
+            })
+                .when('/posts/:postId', {
+                templateUrl: 'views/viewSinglePost.html',
                 controller: 'viewBlogPostCtrl'
             })
                 .when('/admin/posts/:postId', {
@@ -218,6 +286,9 @@ var blogposts;
                 .when('/admin/posts/', {
                 templateUrl: 'views/newPost.html',
                 controller: 'createBlogPostCtrl'
+            })
+                .when('/login/', {
+                templateUrl: 'views/login.html'
             })
                 .when('/404', {
                 templateUrl: 'views/404.html'

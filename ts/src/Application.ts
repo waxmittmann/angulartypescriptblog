@@ -1,10 +1,4 @@
-/// <reference path='../libs/jquery/jquery.d.ts' />
-/// <reference path='../libs/angular/angular.d.ts' />
-/// <reference path='../libs/angular/angular-route.d.ts' />
-
-/// <reference path='viewblogposts/ViewBlogPostCtrl.ts' />
-/// <reference path='createblogpost/CreateBlogPostCtrl.ts' />
-/// <reference path='blogpost/implementations/LocalStorageBlogPostStore.ts' />
+/// <reference path='_all.ts' />
 
 module blogposts {
     'use strict';
@@ -13,12 +7,21 @@ module blogposts {
     var golby = angular.module('golby', ['ngRoute'])
             .controller('viewBlogPostCtrl', ViewBlogPostCtrl)
             .controller('createBlogPostCtrl', CreateBlogPostCtrl)
+            .controller('authenticationCtrl', AuthenticationCtrl)
             .service('blogPostStore', LocalStorageBlogPostStore)
+            .service('authenticationService', AuthenticationService)
             .config(['$routeProvider',
                 function routes($routeProvider: ng.route.IRouteProvider) {
                     $routeProvider
                         .when('/', {
                             templateUrl: 'views/viewPosts.html',
+                            controller: 'viewBlogPostCtrl'
+                        })
+                        .when('/posts/', {
+                            redirectTo: '/'
+                        })
+                        .when('/posts/:postId', {
+                            templateUrl: 'views/viewSinglePost.html',
                             controller: 'viewBlogPostCtrl'
                         })
                         .when('/admin/posts/:postId', {
@@ -28,6 +31,10 @@ module blogposts {
                         .when('/admin/posts/', {
                             templateUrl: 'views/newPost.html',
                             controller: 'createBlogPostCtrl'
+                        })
+                        .when('/login/', {
+                            templateUrl: 'views/login.html'
+                            // controller: 'AuthenticationCtrl'
                         })
                         .when('/404', {
                             templateUrl: 'views/404.html'
