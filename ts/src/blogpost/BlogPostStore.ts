@@ -17,10 +17,3 @@ module blogposts {
     nextId(): number;
   }
 }
-
-// module todos {
-// 	export interface ITodoStorage {
-// 		get (): TodoItem[];
-// 		put(todos: TodoItem[]);
-// 	}
-// }

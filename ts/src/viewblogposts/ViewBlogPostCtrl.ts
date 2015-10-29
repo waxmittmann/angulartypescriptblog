@@ -10,13 +10,6 @@ module blogposts {
   'use strict';
 
   export class ViewBlogPostCtrl {
-    private posts = [
-        new BlogPost(1, "First Post", "This is the body"),
-        new BlogPost(2, "Second Post", "This is the body"),
-        new BlogPost(3, "Third Post", "This is the body"),
-        new BlogPost(4, "Fourth Post", "This is the body")
-    ];
-
     public static $inject = [
       'blogPostStore',
 			'$scope',
@@ -25,7 +18,8 @@ module blogposts {
 
     //The reason for this is because the storage will return a new array each time
     //so we will trigger an endless digest cycle =(
-    //Maybe
+    //Maybe we should take blogPosts out of the digest cycle and manually trigger
+    //updates?
     private blogPosts: BlogPost[];
 
     constructor(

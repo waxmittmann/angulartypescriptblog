@@ -4,7 +4,7 @@
 
 /// <reference path='viewblogposts/ViewBlogPostCtrl.ts' />
 /// <reference path='createblogpost/CreateBlogPostCtrl.ts' />
-/// <reference path='blogpost/LocalStorageBlogPostStore.ts' />
+/// <reference path='blogpost/implementations/LocalStorageBlogPostStore.ts' />
 
 module blogposts {
     'use strict';

@@ -16,12 +16,6 @@ var blogposts;
 (function (blogposts) {
     'use strict';
 })(blogposts || (blogposts = {}));
-// module todos {
-// 	export interface ITodoStorage {
-// 		get (): TodoItem[];
-// 		put(todos: TodoItem[]);
-// 	}
-// }
 /// <reference path='../../libs/angular/angular.d.ts' />
 /// <reference path='../../libs/angular/angular-route.d.ts' />
 /// <reference path='../../libs/jquery/jquery.d.ts' />
@@ -36,12 +30,6 @@ var blogposts;
             this.blogPostStore = blogPostStore;
             this.$scope = $scope;
             this.$location = $location;
-            this.posts = [
-                new blogposts.BlogPost(1, "First Post", "This is the body"),
-                new blogposts.BlogPost(2, "Second Post", "This is the body"),
-                new blogposts.BlogPost(3, "Third Post", "This is the body"),
-                new blogposts.BlogPost(4, "Fourth Post", "This is the body")
-            ];
             $scope.vm = this;
             this.blogPosts = this.blogPostStore.list();
         }
@@ -125,9 +113,9 @@ var blogposts;
     })();
     blogposts.CreateBlogPostCtrl = CreateBlogPostCtrl;
 })(blogposts || (blogposts = {}));
-/// <reference path='../../libs/underscore/underscore.d.ts' />
-/// <reference path='BlogPostStore.ts' />
-/// <reference path='BlogPost.ts' />
+/// <reference path='../../../libs/underscore/underscore.d.ts' />
+/// <reference path='../BlogPostStore.ts' />
+/// <reference path='../BlogPost.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
@@ -207,7 +195,7 @@ var blogposts;
 /// <reference path='../libs/angular/angular-route.d.ts' />
 /// <reference path='viewblogposts/ViewBlogPostCtrl.ts' />
 /// <reference path='createblogpost/CreateBlogPostCtrl.ts' />
-/// <reference path='blogpost/LocalStorageBlogPostStore.ts' />
+/// <reference path='blogpost/implementations/LocalStorageBlogPostStore.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';

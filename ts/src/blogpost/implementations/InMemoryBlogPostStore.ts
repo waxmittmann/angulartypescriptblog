@@ -1,7 +1,7 @@
-/// <reference path='../../libs/underscore/underscore.d.ts' />
+/// <reference path='../../../libs/underscore/underscore.d.ts' />
 
-/// <reference path='BlogPostStore.ts' />
-/// <reference path='BlogPost.ts' />
+/// <reference path='../BlogPostStore.ts' />
+/// <reference path='../BlogPost.ts' />
 
 module blogposts {
   'use strict';

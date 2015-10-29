@@ -71,9 +71,5 @@ module blogposts {
       this.addOrEditPost();
       this.$location.path("/");
     }
-
-    // editPost(post: BlogPost) {
-    //   throw "Not implemented yet";
-    // }
   }
 }
