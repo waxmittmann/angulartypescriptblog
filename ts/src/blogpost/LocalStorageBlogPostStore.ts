@@ -1,11 +1,12 @@
 /// <reference path='../../libs/underscore/underscore.d.ts' />
 
+/// <reference path='BlogPostStore.ts' />
 /// <reference path='BlogPost.ts' />
 
 module blogposts {
   'use strict';
 
-  export class LocalStorageBlogPostStore {
+  export class LocalStorageBlogPostStore implements BlogPostStore {
     private static STORAGE_ID = "blog-post-store"
 
     add(newPost: BlogPost) {
@@ -58,7 +59,16 @@ module blogposts {
 
     nextId() {
       var difference = this.doWithPosts(function(posts) {
-          return posts.length + 1;
+          var largestId: number =_.chain(posts)
+              .map(function(post) { return Number(post.id); })
+              .reduce(function(largestSoFar: number, cur: number) {
+                console.log("Comparing " + largestSoFar + " and " + cur);
+                return largestSoFar > cur ? largestSoFar : cur;
+              }, 1)
+              .value();
+          var newId: number = largestId + 1;
+          console.log(largestId + ", " + newId);
+          return newId;
       });
       return difference;
     }

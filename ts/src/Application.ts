@@ -9,6 +9,7 @@
 module blogposts {
     'use strict';
 
+    //maybe should use ui-router instead of ngRoute
     var golby = angular.module('golby', ['ngRoute'])
             .controller('viewBlogPostCtrl', ViewBlogPostCtrl)
             .controller('createBlogPostCtrl', CreateBlogPostCtrl)

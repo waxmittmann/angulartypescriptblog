@@ -4,7 +4,7 @@
 /// <reference path='../../libs/underscore/underscore.d.ts' />
 
 /// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/LocalStorageBlogPostStore.ts' />
+/// <reference path='../blogpost/BlogPostStore.ts' />
 
 module blogposts {
   'use strict';
@@ -19,7 +19,7 @@ module blogposts {
 		];
 
     constructor(
-      private blogPostStore: LocalStorageBlogPostStore,
+      private blogPostStore: BlogPostStore,
       private $scope,
       private $location: ng.ILocationService,
       private $routeParams

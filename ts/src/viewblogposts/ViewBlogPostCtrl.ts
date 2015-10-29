@@ -4,7 +4,7 @@
 /// <reference path='../../libs/underscore/underscore.d.ts' />
 
 /// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/LocalStorageBlogPostStore.ts' />
+/// <reference path='../blogpost/BlogPostStore.ts' />
 
 module blogposts {
   'use strict';
@@ -23,16 +23,22 @@ module blogposts {
 			'$location'
 		];
 
+    //The reason for this is because the storage will return a new array each time
+    //so we will trigger an endless digest cycle =(
+    //Maybe
+    private blogPosts: BlogPost[];
+
     constructor(
-      private blogPostStore: LocalStorageBlogPostStore,
+      private blogPostStore: BlogPostStore,
       private $scope,
       private $location: ng.ILocationService
     ) {
       $scope.vm = this;
+      this.blogPosts = this.blogPostStore.list();
     }
 
     list() {
-      return this.blogPostStore.list();
+      return this.blogPosts;
     }
 
     getPosts(from: number, to: number) {
@@ -41,6 +47,7 @@ module blogposts {
 
     deletePost(id: number) {
       this.blogPostStore.remove(id);
+      this.blogPosts = this.blogPostStore.list();
     }
   }
 }

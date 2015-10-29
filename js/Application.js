@@ -11,79 +11,23 @@ var blogposts;
     })();
     blogposts.BlogPost = BlogPost;
 })(blogposts || (blogposts = {}));
-/// <reference path='../../libs/underscore/underscore.d.ts' />
 /// <reference path='BlogPost.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
-    var LocalStorageBlogPostStore = (function () {
-        function LocalStorageBlogPostStore() {
-        }
-        LocalStorageBlogPostStore.prototype.add = function (newPost) {
-            this.doWithPosts(function (posts) {
-                posts.push(newPost);
-            });
-        };
-        LocalStorageBlogPostStore.prototype.edit = function (editedPost) {
-            this.doWithPosts(function (posts) {
-                var index = _.findIndex(posts, function (post) { return post.id == editedPost.id; });
-                if (index != -1) {
-                    posts[index] = editedPost;
-                }
-                else {
-                    throw "No post with id " + editedPost.id;
-                }
-            });
-        };
-        LocalStorageBlogPostStore.prototype.get = function (id) {
-            var post = this.doWithPosts(function (posts) {
-                var index = _.findIndex(posts, function (post) {
-                    return post.id == id;
-                });
-                console.log("Found " + index);
-                return posts[index];
-            });
-            return post;
-        };
-        LocalStorageBlogPostStore.prototype.remove = function (id) {
-            var posts = this.list();
-            var newPosts = _.filter(posts, function (post) { return post.id != id; });
-            var difference = posts.length - newPosts.length;
-            localStorage.setItem(LocalStorageBlogPostStore.STORAGE_ID, JSON.stringify(newPosts));
-            console.log("Stored " + newPosts);
-            return difference;
-        };
-        LocalStorageBlogPostStore.prototype.list = function () {
-            var result = JSON.parse(localStorage.getItem(LocalStorageBlogPostStore.STORAGE_ID));
-            if (!result) {
-                result = new Array();
-            }
-            console.log("Received " + result);
-            return result;
-        };
-        LocalStorageBlogPostStore.prototype.nextId = function () {
-            var difference = this.doWithPosts(function (posts) {
-                return posts.length + 1;
-            });
-            return difference;
-        };
-        LocalStorageBlogPostStore.prototype.doWithPosts = function (func) {
-            var posts = this.list();
-            var result = func(posts);
-            localStorage.setItem(LocalStorageBlogPostStore.STORAGE_ID, JSON.stringify(posts));
-            return result;
-        };
-        LocalStorageBlogPostStore.STORAGE_ID = "blog-post-store";
-        return LocalStorageBlogPostStore;
-    })();
-    blogposts.LocalStorageBlogPostStore = LocalStorageBlogPostStore;
 })(blogposts || (blogposts = {}));
+// module todos {
+// 	export interface ITodoStorage {
+// 		get (): TodoItem[];
+// 		put(todos: TodoItem[]);
+// 	}
+// }
 /// <reference path='../../libs/angular/angular.d.ts' />
 /// <reference path='../../libs/angular/angular-route.d.ts' />
 /// <reference path='../../libs/jquery/jquery.d.ts' />
 /// <reference path='../../libs/underscore/underscore.d.ts' />
 /// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/LocalStorageBlogPostStore.ts' />
+/// <reference path='../blogpost/BlogPostStore.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
@@ -99,15 +43,17 @@ var blogposts;
                 new blogposts.BlogPost(4, "Fourth Post", "This is the body")
             ];
             $scope.vm = this;
+            this.blogPosts = this.blogPostStore.list();
         }
         ViewBlogPostCtrl.prototype.list = function () {
-            return this.blogPostStore.list();
+            return this.blogPosts;
         };
         ViewBlogPostCtrl.prototype.getPosts = function (from, to) {
             throw "Not implemented yet";
         };
         ViewBlogPostCtrl.prototype.deletePost = function (id) {
             this.blogPostStore.remove(id);
+            this.blogPosts = this.blogPostStore.list();
         };
         ViewBlogPostCtrl.$inject = [
             'blogPostStore',
@@ -123,7 +69,7 @@ var blogposts;
 /// <reference path='../../libs/jquery/jquery.d.ts' />
 /// <reference path='../../libs/underscore/underscore.d.ts' />
 /// <reference path='../blogpost/BlogPost.ts' />
-/// <reference path='../blogpost/LocalStorageBlogPostStore.ts' />
+/// <reference path='../blogpost/BlogPostStore.ts' />
 var blogposts;
 (function (blogposts) {
     'use strict';
@@ -179,6 +125,83 @@ var blogposts;
     })();
     blogposts.CreateBlogPostCtrl = CreateBlogPostCtrl;
 })(blogposts || (blogposts = {}));
+/// <reference path='../../libs/underscore/underscore.d.ts' />
+/// <reference path='BlogPostStore.ts' />
+/// <reference path='BlogPost.ts' />
+var blogposts;
+(function (blogposts) {
+    'use strict';
+    var LocalStorageBlogPostStore = (function () {
+        function LocalStorageBlogPostStore() {
+        }
+        LocalStorageBlogPostStore.prototype.add = function (newPost) {
+            this.doWithPosts(function (posts) {
+                posts.push(newPost);
+            });
+        };
+        LocalStorageBlogPostStore.prototype.edit = function (editedPost) {
+            this.doWithPosts(function (posts) {
+                var index = _.findIndex(posts, function (post) { return post.id == editedPost.id; });
+                if (index != -1) {
+                    posts[index] = editedPost;
+                }
+                else {
+                    throw "No post with id " + editedPost.id;
+                }
+            });
+        };
+        LocalStorageBlogPostStore.prototype.get = function (id) {
+            var post = this.doWithPosts(function (posts) {
+                var index = _.findIndex(posts, function (post) {
+                    return post.id == id;
+                });
+                console.log("Found " + index);
+                return posts[index];
+            });
+            return post;
+        };
+        LocalStorageBlogPostStore.prototype.remove = function (id) {
+            var posts = this.list();
+            var newPosts = _.filter(posts, function (post) { return post.id != id; });
+            var difference = posts.length - newPosts.length;
+            localStorage.setItem(LocalStorageBlogPostStore.STORAGE_ID, JSON.stringify(newPosts));
+            console.log("Stored " + newPosts);
+            return difference;
+        };
+        LocalStorageBlogPostStore.prototype.list = function () {
+            var result = JSON.parse(localStorage.getItem(LocalStorageBlogPostStore.STORAGE_ID));
+            if (!result) {
+                result = new Array();
+            }
+            console.log("Received " + result);
+            return result;
+        };
+        LocalStorageBlogPostStore.prototype.nextId = function () {
+            var difference = this.doWithPosts(function (posts) {
+                var largestId = _.chain(posts)
+                    .map(function (post) { return Number(post.id); })
+                    .reduce(function (largestSoFar, cur) {
+                    console.log("Comparing " + largestSoFar + " and " + cur);
+                    return largestSoFar > cur ? largestSoFar : cur;
+                }, 1)
+                    .value();
+                var newId = largestId + 1;
+                console.log(largestId + ", " + newId);
+                return newId;
+            });
+            return difference;
+        };
+        LocalStorageBlogPostStore.prototype.doWithPosts = function (func) {
+            var posts = this.list();
+            var result = func(posts);
+            localStorage.setItem(LocalStorageBlogPostStore.STORAGE_ID, JSON.stringify(posts));
+            return result;
+        };
+        LocalStorageBlogPostStore.STORAGE_ID = "blog-post-store";
+        return LocalStorageBlogPostStore;
+    })();
+    blogposts.LocalStorageBlogPostStore = LocalStorageBlogPostStore;
+})(blogposts || (blogposts = {}));
 /// <reference path='../libs/jquery/jquery.d.ts' />
 /// <reference path='../libs/angular/angular.d.ts' />
 /// <reference path='../libs/angular/angular-route.d.ts' />
@@ -188,6 +211,7 @@ var blogposts;
 var blogposts;
 (function (blogposts) {
     'use strict';
+    //maybe should use ui-router instead of ngRoute
     var golby = angular.module('golby', ['ngRoute'])
         .controller('viewBlogPostCtrl', blogposts.ViewBlogPostCtrl)
         .controller('createBlogPostCtrl', blogposts.CreateBlogPostCtrl)
