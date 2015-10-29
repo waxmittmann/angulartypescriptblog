@@ -8,7 +8,8 @@ module blogposts {
       'blogPostStore',
       'authenticationService',
 			'$scope',
-			'$location'
+			'$location',
+      '$routeParams'
 		];
 
     //The reason for this is because the storage will return a new array each time
@@ -16,15 +17,18 @@ module blogposts {
     //Maybe we should take blogPosts out of the digest cycle and manually trigger
     //updates?
     private blogPosts: BlogPost[];
-
+    private selectedPostId;
+    
     constructor(
       private blogPostStore: BlogPostStore,
       private authenticationService: AuthenticationService,
       private $scope,
-      private $location: ng.ILocationService
+      private $location: ng.ILocationService,
+      private $routeParams
     ) {
       $scope.vm = this;
       this.blogPosts = this.blogPostStore.list();
+      this.selectedPostId = $routeParams.postId;
 
       console.log("Called constructor!");
     }
@@ -37,14 +41,16 @@ module blogposts {
       throw "Not implemented yet";
     }
 
+    getSelectedPost(): BlogPost {
+      if (!this.selectedPostId) {
+        throw "No post was selected...";
+      }
+      return this.blogPostStore.get(this.selectedPostId);
+    }
+
     deletePost(id: number) {
       this.blogPostStore.remove(id);
       this.blogPosts = this.blogPostStore.list();
     }
-
-    // showAdminControls(): boolean {
-    //   console.log("is logged in? = " + this.authenticationService.isLoggedIn());
-    //   return this.authenticationService.isLoggedIn();
-    // }
   }
 }

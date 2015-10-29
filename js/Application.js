@@ -3,13 +3,15 @@ var blogposts;
 (function (blogposts) {
     'use strict';
     var ViewBlogPostCtrl = (function () {
-        function ViewBlogPostCtrl(blogPostStore, authenticationService, $scope, $location) {
+        function ViewBlogPostCtrl(blogPostStore, authenticationService, $scope, $location, $routeParams) {
             this.blogPostStore = blogPostStore;
             this.authenticationService = authenticationService;
             this.$scope = $scope;
             this.$location = $location;
+            this.$routeParams = $routeParams;
             $scope.vm = this;
             this.blogPosts = this.blogPostStore.list();
+            this.selectedPostId = $routeParams.postId;
             console.log("Called constructor!");
         }
         ViewBlogPostCtrl.prototype.list = function () {
@@ -17,6 +19,12 @@ var blogposts;
         };
         ViewBlogPostCtrl.prototype.getPosts = function (from, to) {
             throw "Not implemented yet";
+        };
+        ViewBlogPostCtrl.prototype.getSelectedPost = function () {
+            if (!this.selectedPostId) {
+                throw "No post was selected...";
+            }
+            return this.blogPostStore.get(this.selectedPostId);
         };
         ViewBlogPostCtrl.prototype.deletePost = function (id) {
             this.blogPostStore.remove(id);
@@ -26,7 +34,8 @@ var blogposts;
             'blogPostStore',
             'authenticationService',
             '$scope',
-            '$location'
+            '$location',
+            '$routeParams'
         ];
         return ViewBlogPostCtrl;
     })();

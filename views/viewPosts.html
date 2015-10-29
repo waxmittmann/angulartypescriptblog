@@ -6,6 +6,7 @@
     <div class="blog-post-body" ng-cloak>{{ post.body }}</div>
     <div>
       <a ng-show="loggedIn" href="/#/admin/posts/{{ post.id }}">Edit</a>
+      <a ng-hide="loggedIn" href="/#/posts/{{ post.id }}">Read</a>
       <a ng-show="loggedIn" href="javascript:;" ng-click="vm.deletePost( post.id )">Delete</a>
     </div>
   </div>
