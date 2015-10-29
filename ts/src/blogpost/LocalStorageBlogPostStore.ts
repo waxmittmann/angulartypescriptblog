@@ -43,6 +43,7 @@ module blogposts {
       var newPosts = _.filter(posts, function(post) { return post.id != id});
       var difference = posts.length - newPosts.length;
       localStorage.setItem(LocalStorageBlogPostStore.STORAGE_ID, JSON.stringify(newPosts));
+      console.log("Stored " + newPosts);
       return difference;
     }
 
@@ -51,6 +52,7 @@ module blogposts {
       if (!result) {
           result = new Array<BlogPost>();
       }
+      console.log("Received " + result);
       return result;
     }
 

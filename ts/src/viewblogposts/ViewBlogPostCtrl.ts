@@ -23,19 +23,16 @@ module blogposts {
 			'$location'
 		];
 
-    private blogPosts: BlogPost[];
-
     constructor(
       private blogPostStore: LocalStorageBlogPostStore,
       private $scope,
       private $location: ng.ILocationService
     ) {
       $scope.vm = this;
-      this.blogPosts = this.blogPostStore.list();
     }
 
     list() {
-      return this.blogPosts;
+      return this.blogPostStore.list();
     }
 
     getPosts(from: number, to: number) {
@@ -44,8 +41,6 @@ module blogposts {
 
     deletePost(id: number) {
       this.blogPostStore.remove(id);
-      this.blogPosts = this.blogPostStore.list();
-      // this.$scope.$digest();
     }
   }
 }

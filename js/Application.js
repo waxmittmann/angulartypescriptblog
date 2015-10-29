@@ -50,6 +50,7 @@ var blogposts;
             var newPosts = _.filter(posts, function (post) { return post.id != id; });
             var difference = posts.length - newPosts.length;
             localStorage.setItem(LocalStorageBlogPostStore.STORAGE_ID, JSON.stringify(newPosts));
+            console.log("Stored " + newPosts);
             return difference;
         };
         LocalStorageBlogPostStore.prototype.list = function () {
@@ -57,6 +58,7 @@ var blogposts;
             if (!result) {
                 result = new Array();
             }
+            console.log("Received " + result);
             return result;
         };
         LocalStorageBlogPostStore.prototype.nextId = function () {
@@ -97,18 +99,15 @@ var blogposts;
                 new blogposts.BlogPost(4, "Fourth Post", "This is the body")
             ];
             $scope.vm = this;
-            this.blogPosts = this.blogPostStore.list();
         }
         ViewBlogPostCtrl.prototype.list = function () {
-            return this.blogPosts;
+            return this.blogPostStore.list();
         };
         ViewBlogPostCtrl.prototype.getPosts = function (from, to) {
             throw "Not implemented yet";
         };
         ViewBlogPostCtrl.prototype.deletePost = function (id) {
             this.blogPostStore.remove(id);
-            this.blogPosts = this.blogPostStore.list();
-            // this.$scope.$digest();
         };
         ViewBlogPostCtrl.$inject = [
             'blogPostStore',
