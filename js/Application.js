@@ -216,9 +216,8 @@ var blogposts;
         function AuthenticationCtrl(authenticationService, $scope) {
             this.authenticationService = authenticationService;
             this.$scope = $scope;
-            $scope.vm = this;
+            $scope.auth = this;
             $scope.loggedIn = this.authenticationService.isLoggedIn();
-            // console.log("Constructed auth ctrl");
         }
         AuthenticationCtrl.prototype.logIn = function () {
             this.authenticationService.login();
@@ -231,9 +230,6 @@ var blogposts;
         AuthenticationCtrl.prototype.showAdminControls = function () {
             console.log("is logged in? = " + this.authenticationService.isLoggedIn());
             return this.authenticationService.isLoggedIn();
-        };
-        AuthenticationCtrl.prototype.ping = function () {
-            return true;
         };
         AuthenticationCtrl.$inject = [
             'authenticationService',

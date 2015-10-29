@@ -14,9 +14,8 @@ module blogposts {
       private authenticationService,
       private $scope
     ) {
-        $scope.vm = this;
+        $scope.auth = this;
         $scope.loggedIn = this.authenticationService.isLoggedIn();
-        // console.log("Constructed auth ctrl");
     }
 
     logIn() {
@@ -32,10 +31,6 @@ module blogposts {
     showAdminControls(): boolean {
       console.log("is logged in? = " + this.authenticationService.isLoggedIn());
       return this.authenticationService.isLoggedIn();
-    }
-
-    ping() {
-      return true;
     }
   }
 }

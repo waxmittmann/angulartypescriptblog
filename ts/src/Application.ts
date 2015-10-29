@@ -34,7 +34,6 @@ module blogposts {
                         })
                         .when('/login/', {
                             templateUrl: 'views/login.html'
-                            // controller: 'AuthenticationCtrl'
                         })
                         .when('/404', {
                             templateUrl: 'views/404.html'
