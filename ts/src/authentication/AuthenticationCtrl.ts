@@ -14,7 +14,7 @@ module blogposts {
       private authenticationService,
       private $scope
     ) {
-        $scope.auth = this;
+        $scope.vm = this;
         $scope.loggedIn = this.authenticationService.isLoggedIn();
     }
 

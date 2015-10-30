@@ -10,6 +10,7 @@ module blogposts {
             .controller('authenticationCtrl', AuthenticationCtrl)
             .service('blogPostStore', LocalStorageBlogPostStore)
             .service('authenticationService', AuthenticationService)
+            .service('promiseBuilder', PromiseBuilder)
             .config(['$routeProvider',
                 function routes($routeProvider: ng.route.IRouteProvider) {
                     $routeProvider

@@ -2,19 +2,30 @@
 
 
 module blogposts {
-  'use strict';
+    'use strict';
 
-  export interface BlogPostStore {
-    add(newPost: BlogPost);
+    export class BlogPostData {
+        constructor(public title: string, public body: string) { }
+    }
 
-    edit(editedPost: BlogPost);
+    export interface BlogPostStore {
+        //add(newPost:BlogPost);
+        add(newBlogPost: BlogPostData): ng.IPromise<BlogPost>;
+        //add2(newPost: {string, string}): Promise;
 
-    get(id: number): BlogPost;
+        //edit(editedPost:BlogPost);
+        edit(editedPost:BlogPost): ng.IPromise<BlogPost>;
 
-    remove(id: number): number;
+        //get(id:number): BlogPost;
+        get(id:number): ng.IPromise<BlogPost>;
 
-    list(): BlogPost[];
+        //remove(id:number): number;
+        remove(id:number): ng.IPromise<number>;
 
-    nextId(): number;
-  }
+        //list(): BlogPost[];
+        list(): ng.IPromise<BlogPost[]>;
+
+        //nextId(): number;
+        //nextId(): Promise;
+    }
 }
